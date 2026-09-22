@@ -1,0 +1,134 @@
+id: leeds-compsoc-ctf-2026
+name: Leeds CompSoc CTF 2026
+type: hidden
+password: LUCS26-CTF-SETUP
+
+description: |
+  Beginner-friendly Capture the Flag event for the University of Leeds Computer Society.
+
+  Work in teams of up to four. Challenges are grouped into recommended skill ladders,
+  but teams may split up and work on different challenges in parallel.
+
+  Important scoring rule: use the Crew Cumulative scoreboard, and only one member
+  of a team should submit each solved challenge.
+
+modules:
+  - id: forensics
+    name: "Forensics Ladder"
+    description: |
+      Recommended order for beginners.
+      This track deliberately builds skills:
+      grep -> unzip/cat -> log analysis -> zip metadata -> image metadata ->
+      steganography -> combined forensics.
+
+      Start with Grep Master if you are new to the terminal.
+
+    challenges:
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: grep-master
+        name: "1. Grep Master [Easy]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: unlock-the-vault
+        name: "2. Unlock the Vault [Easy]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: chatty-server
+        name: "3. Chatty Server [Easy-Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: locked-treasure-chest
+        name: "4. Locked Treasure Chest [Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: the-artists-clue
+        name: "5. The Artist's Clue [Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: secret-message-in-photo
+        name: "6. Secret Message in Photo [Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: forensics
+          challenge: hidden-treasures-in-the-picture
+        name: "7. Hidden Treasures in the Picture [Hard]"
+
+  - id: web
+    name: "Web Security Ladder"
+    description: |
+      Recommended order:
+      Pale Red Horse Squad -> Am I Admin? -> Am I Admin 2?
+
+      Use the pwn.college Desktop browser for localhost websites.
+
+    challenges:
+      - import:
+          dojo: cyber-security~59368da7
+          module: web
+          challenge: pale-red-horse-squad
+        name: "1. Pale Red Horse Squad [Easy]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: web
+          challenge: am-i-admin
+        name: "2. Am I Admin? [Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: web
+          challenge: am-i-admin-2
+        name: "3. Am I Admin 2? [Hard]"
+
+  - id: pwn-re
+    name: "PWN & Reverse Engineering Ladder"
+    description: |
+      A programming-focused route for stronger teams.
+      Buffer Overflow is deliberately simplified.
+      Magic Number introduces binary inspection.
+      Reverse Plaintext Password requires source-code reasoning.
+
+    challenges:
+      - import:
+          dojo: cyber-security~59368da7
+          module: pwn
+          challenge: buffer-overflow
+        name: "1. Buffer Overflow [Easy-Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: pwn
+          challenge: magic-number
+        name: "2. Magic Number [Medium]"
+
+      - import:
+          dojo: cyber-security~59368da7
+          module: pwn
+          challenge: reverse-password-plaintext
+        name: "3. Reverse Plaintext Password [Hard]"
+
+  - id: osint
+    name: "OSINT"
+    description: |
+      A good starting option for participants who are less confident with the terminal.
+      This challenge uses a local fake social-media site.
+
+    challenges:
+      - import:
+          dojo: cyber-security~59368da7
+          module: osint
+          challenge: socialmediapassword
+        name: "Social Media Password [Easy-Medium]"
