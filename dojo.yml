@@ -4,131 +4,225 @@ type: hidden
 password: LUCS26-CTF-SETUP
 
 description: |
-  Beginner-friendly Capture the Flag event for the University of Leeds Computer Society.
+  Leeds Computing Society Capture the Flag competition.
 
-  Work in teams of up to four. Challenges are grouped into recommended skill ladders,
-  but teams may split up and work on different challenges in parallel.
+  Work in teams of up to four and solve as many challenges as you can before time runs out.
 
-  Important scoring rule: use the Crew Cumulative scoreboard, and only one member
-  of a team should submit each solved challenge.
+  Each challenge is worth one point. You can attempt the challenges in any order
+  and split them between different members of your team.
+
+  Only one person in each team should submit each solved challenge.
+
+  If you're new to CTFs, start with the Warm-up or the first Forensics challenge.
 
 modules:
-  - id: forensics
-    name: "Forensics Ladder"
-    description: |
-      Recommended order for beginners.
-      This track deliberately builds skills:
-      grep -> unzip/cat -> log analysis -> zip metadata -> image metadata ->
-      steganography -> combined forensics.
 
-      Start with Grep Master if you are new to the terminal.
+  - id: warm-up
+    name: "Warm-up"
+    description: |
+      New to CTFs? Start here. This is a short decoding challenge to get you used
+      to solving a challenge and submitting a flag.
 
     challenges:
       - import:
           dojo: cyber-security~59368da7
+          module: encoding
+          challenge: caesar-cipher-decryption
+        name: "Caesar Cipher Decryption"
+        description: |
+          A message has been encoded using a Caesar cipher.
+
+          Start the challenge and run /challenge/verify.
+          You will be given an encoded word and a shift value.
+
+          Move each letter backwards by the given amount to recover the original word.
+          The challenge will guide you through it.
+
+
+  - id: forensics
+    name: "Forensics"
+    description: |
+      Investigate files and data to uncover hidden information.
+
+      If you're new to the terminal, start with Grep Master and work down the list.
+      The later challenges build on tools introduced earlier.
+
+    challenges:
+
+      - import:
+          dojo: cyber-security~59368da7
           module: forensics
           challenge: grep-master
-        name: "1. Grep Master [Easy]"
+        name: "1. Grep Master"
 
       - import:
           dojo: cyber-security~59368da7
           module: forensics
           challenge: unlock-the-vault
-        name: "2. Unlock the Vault [Easy]"
+        name: "2. Unlock the Vault"
 
       - import:
           dojo: cyber-security~59368da7
           module: forensics
           challenge: chatty-server
-        name: "3. Chatty Server [Easy-Medium]"
+        name: "3. Chatty Server"
 
       - import:
           dojo: cyber-security~59368da7
           module: forensics
           challenge: locked-treasure-chest
-        name: "4. Locked Treasure Chest [Medium]"
+        name: "4. Locked Treasure Chest"
 
       - import:
           dojo: cyber-security~59368da7
           module: forensics
           challenge: the-artists-clue
-        name: "5. The Artist's Clue [Medium]"
+        name: "5. The Artist's Clue"
 
       - import:
           dojo: cyber-security~59368da7
           module: forensics
           challenge: secret-message-in-photo
-        name: "6. Secret Message in Photo [Medium]"
+        name: "6. Secret Message in Photo"
+        description: |
+          A photograph contains a hidden message.
+
+          Go to /home/ubuntu/Secret-Message-in-Photo.
+
+          First search secret.txt for the password associated with
+          suspicious_doggo.jpg.
+
+          Then use steghide to extract the hidden data from the image.
+          Save the output as /home/hacker/temp_flag.txt.
+
+          Read temp_flag.txt, then run /challenge/verify with the temporary flag.
 
       - import:
           dojo: cyber-security~59368da7
           module: forensics
           challenge: hidden-treasures-in-the-picture
-        name: "7. Hidden Treasures in the Picture [Hard]"
+        name: "7. Hidden Treasures in the Picture"
+        description: |
+          One image contains four separate pieces of a flag.
+
+          Go to /home/ubuntu/Hidden-Treasure-in-Picture.
+
+          Use the tools you've met in the earlier forensics challenges to find
+          all four pieces. Tools such as strings, grep, exiftool, steghide and
+          binwalk may be useful.
+
+          Put the four parts together to make the temporary FLAG{...},
+          then run /challenge/verify.
+
 
   - id: web
-    name: "Web Security Ladder"
+    name: "Web"
     description: |
-      Recommended order:
-      Pale Red Horse Squad -> Am I Admin? -> Am I Admin 2?
+      These challenges look at how websites work and how information stored
+      in the browser can affect what a website lets you do.
 
-      Use the pwn.college Desktop browser for localhost websites.
+      We recommend doing them in order.
+
+      Important: when a challenge gives you a localhost or 127.0.0.1 address,
+      open Firefox inside the pwn.college Desktop.
 
     challenges:
+
       - import:
           dojo: cyber-security~59368da7
           module: web
           challenge: pale-red-horse-squad
-        name: "1. Pale Red Horse Squad [Easy]"
+        name: "1. Pale Red Horse Squad"
+        description: |
+          A secret club has hidden its entry passphrase somewhere on its webpage.
+
+          Go to /challenge and run ./verify.
+
+          Open Firefox inside the pwn.college Desktop and visit:
+          http://127.0.0.1:5000
+
+          Look around the webpage and its source to find the passphrase.
 
       - import:
           dojo: cyber-security~59368da7
           module: web
           challenge: am-i-admin
-        name: "2. Am I Admin? [Medium]"
+        name: "2. Am I Admin?"
+        description: |
+          This website uses a browser cookie to decide whether a user is an admin.
+
+          Run /challenge/app.py, then use Firefox inside the pwn.college Desktop
+          to visit http://127.0.0.1:5000.
+
+          Work out what the site is storing in the browser and see if you can
+          make it treat you as an admin.
 
       - import:
           dojo: cyber-security~59368da7
           module: web
           challenge: am-i-admin-2
-        name: "3. Am I Admin 2? [Hard]"
+        name: "3. Am I Admin 2?"
+        description: |
+          The previous cookie trick has been changed.
 
-  - id: pwn-re
-    name: "PWN & Reverse Engineering Ladder"
+          Run /challenge/app.py, then open the website using Firefox inside
+          the pwn.college Desktop.
+
+          Take a look at the Python application code in /challenge.
+          Work out how the admin value is now being checked.
+
+
+  - id: programs
+    name: "Programs & Reverse Engineering"
     description: |
-      A programming-focused route for stronger teams.
-      Buffer Overflow is deliberately simplified.
-      Magic Number introduces binary inspection.
-      Reverse Plaintext Password requires source-code reasoning.
+      These challenges involve working out how programs behave.
+
+      You don't need to be an expert in low-level security.
+      Start with Buffer Overflow and work down the list.
 
     challenges:
+
       - import:
           dojo: cyber-security~59368da7
           module: pwn
           challenge: buffer-overflow
-        name: "1. Buffer Overflow [Easy-Medium]"
+        name: "1. Buffer Overflow"
+        description: |
+          Run the buffer_overflow program and follow its prompts.
+
+          The challenge has been deliberately simplified. Experiment with the
+          length of the input you give the program until you trigger the overflow.
+
+          When the program gives you a successful output string, run
+          /challenge/verify and enter it.
 
       - import:
           dojo: cyber-security~59368da7
           module: pwn
           challenge: magic-number
-        name: "2. Magic Number [Medium]"
+        name: "2. Magic Number"
+        description: |
+          A compiled program chooses one of four possible secret numbers.
+
+          Rather than guessing every number from 1 to 1000, inspect the program
+          for clues. The strings command is a good place to start:
+
+          strings /challenge/magic_numbers
+
+          Use what you find to get the program's success string, then enter
+          that string into /challenge/verify.
 
       - import:
           dojo: cyber-security~59368da7
           module: pwn
           challenge: reverse-password-plaintext
-        name: "3. Reverse Plaintext Password [Hard]"
+        name: "3. Reverse Plaintext Password"
+        description: |
+          The password is generated by a Python program and you have its source code.
 
-  - id: osint
-    name: "OSINT"
-    description: |
-      A good starting option for participants who are less confident with the terminal.
-      This challenge uses a local fake social-media site.
+          Open /challenge/plaintextPassword.py in the VS Code Workspace.
 
-    challenges:
-      - import:
-          dojo: cyber-security~59368da7
-          module: osint
-          challenge: socialmediapassword
-        name: "Social Media Password [Easy-Medium]"
+          Follow the list indexing and function calls to work out which characters
+          are used to build the final password.
+
+          Once you've worked it out, run /challenge/verify and enter the password.
